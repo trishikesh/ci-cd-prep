@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 @app.route("/")
 def home():
     env = os.getenv("ENVIRONMENT", "unknown")
-    return f"Pipeline IQ is up and running - {env}"
+    return f"Fixed the monitor report - {env}"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
