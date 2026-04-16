@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 @app.route("/")
 def home():
     env = os.getenv("ENVIRONMENT", "unknown")
-    return f"Fixed the monitor report - {env}"
+    return f"I hope i can fix him - {env}"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
