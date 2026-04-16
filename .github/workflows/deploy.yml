@@ -17,4 +17,21 @@ jobs:
       run: docker build -t flask-app .
 
     - name: Run container
-      run: docker run -d -p 5000:5000 flask-app
+      run: docker run -d -p 5000:5000 --name test-container flask-app
+
+    - name: Wait for container
+      run: sleep 5
+
+    - name: Check container status
+      run: |
+        docker ps -a
+        STATUS=$(docker inspect -f '{{.State.Status}}' test-container)
+        if [ "$STATUS" != "running" ]; then
+          echo "Container failed to start"
+          docker logs test-container
+          exit 1
+        fi
+
+    - name: Check application health
+      run: |
+        curl -f http://localhost:5000 || exit 1
